@@ -1,0 +1,45 @@
+{
+    "name": "Launch via NPM",
+    "type": "node",
+    "request": "launch",
+    "cwd": "${workspaceFolder}",
+    "runtimeExecutable": "npm",
+    "runtimeArgs": [
+        "run-script", "debug"
+    ],
+    "port": 9229
+}
+/*
+
+{
+
+  "version": "0.2.0",
+
+  "configurations": [
+{
+    "type": "chrome",
+    "request": "launch",
+    "name": "Launch Chrome against localhost",
+    "url": "http://localhost:3000",
+    "webRoot": "${workspaceFolder}"
+
+  },
+
+  {
+
+    "type": "chrome",
+
+    "request": "attach",
+
+    "name": "Attach to Chrome",
+    "port": 3000,
+
+    "webRoot": "${workspaceFolder}"
+
+  }
+]
+}*/
+
+//ng build
+//node ./bin/www
+//after then F5 in VSCode

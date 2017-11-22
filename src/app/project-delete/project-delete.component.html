@@ -1,0 +1,12 @@
+<div class="container">
+  <h1>Delete Project</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <label>Are you sure you want to delete the project <strong>{{project.title}}</strong></label>
+      <div>
+          <a routerLink="/projects" class="btn btn-primary">Back</a>
+        <button class="btn btn-danger" type="button" (click)="deleteProject(project._id)">DELETE</button>
+      </div>
+    </div>
+  </div>
+</div>
