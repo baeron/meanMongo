@@ -1,0 +1,268 @@
+<div class="container">
+  <div class="d-flex justify-content-center pt-3">
+    <h1>Add New Electrical</h1>
+  </div>
+  <form (ngSubmit)="saveElectrical()" #electricalForm="ngForm">
+    <div class="row">
+      <div class="col-12 col-xl-6 align-self-start">
+        <div class="d-flex justify-content-center">
+          <span class="h4">Electrical Equipment Entry</span>
+        </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="itemNumber">Item number</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.itemNumber" name="itemNumber" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="dateCreate">Date added</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.dateCreate" name="dateCreate" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="revision">Revision</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.revision" name="revision">
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.quantity" name="quantity">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="equipmentType">Equipment Type</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.equipmentType" name="equipmentType" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="pidDrawing">Pid Drawing</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.pidDrawing" name="pidDrawing" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="layoutDrawing">Layout Drawing</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.layoutDrawing" name="layoutDrawing" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="sldDraving">SLD Drawing</label>
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.sldDraving" name="sldDraving" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="equipmentTag">Equipment Tag</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.equipmentTag" name="equipmentTag" >
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="equipmentTag2">Equipment Tag 2</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.equipmentTag" name="equipmentTag2" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="parentTag">Parent Tag</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.parentTag" name="parentTag" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="equipmentNotes">Equipment Notes</label>
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.equipmentNotes" name="equipmentNotes">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="locationArea">Location/Area</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.locationArea" name="locationArea" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="equipmentDescription">Equipment Description</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.equipmentDescription" name="equipmentDescription" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="cloneTag">Clone Tag</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.cloneTag" name="cloneTag" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="newTag">New Tag</label>
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.newTag" name="newTag">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="locationArea">Length(mm)</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.length" name="length" >
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="depth">Depth(mm)</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.depth" name="depth">
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="height">Height(mm)</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.height" name="height">
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="weight">Weight(kg)</label>
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.weight" name="weight">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="coordForX">X Coord(m)</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.coordForX" name="coordForX" >
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="coordForY">Y Coord(m)</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.coordForY" name="coordForY">
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="coordForZ">Z Coord(m)</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.coordForZ" name="coordForZ">
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="heatDissipation">Heat Dissipation (W)</label>
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.heatDissipation" name="heatDissipation">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="scenarioFirstLoadFactor">Scenario 1 Load Factor %</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.scenarioFirstLoadFactor" name="scenarioFirstLoadFactor" >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-xl-6 align-self-start">
+          <div class="d-flex justify-content-center">
+            <span class="h4">General Rating</span>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="powerSystem">Power System</label>
+                <!--<input type="text" class="form-control" [(ngModel)]="electricalItem.powerSystem" name="powerSystem" disabled>-->
+                <select  class="form-control" [ngModel]="selectedObject | json" (ngModelChange)="updateSelectedValue($event)">
+                    <option *ngFor="let o of electricalItem.powerSystem" [value]="o | json" >{{o.name}}</option>
+                  </select>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="voltage">Voltage</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.voltage" name="voltage" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="totalPF">Total % P.F.</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.totalPF" name="totalPF">
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="totalEFF">Total % EFF.</label>
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.totalEFF" name="totalEFF">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="nameplateRating">Nameplate Rating</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.nameplateRating" name="nameplateRating">
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="units">Units</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.units" name="units" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="motorSF">Motor S.F.</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.motorSF" name="motorSF" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="motorCode">Motor Code</label>
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.motorCode" name="motorCode" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="sccRating">SCC Rating</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.sccRating" name="sccRating" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="enclosureRating">Enclosure Rating</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.enclosureRating" name="enclosureRating" disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="loadFactor">Load Factor (%)</label>
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.loadFactor" name="loadFactor">
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 align-self-end">
+              <div class="form-group">
+                <label for="loadDuty">Load Duty</label>
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.loadDuty" name="loadDuty" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-3 align-self-end">
+            </div>
+          </div>
+        </div>
+    </div>
+  </form>
+</div>

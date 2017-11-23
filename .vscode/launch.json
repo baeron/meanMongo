@@ -1,3 +1,4 @@
+/*
 {
     "name": "Launch via NPM",
     "type": "node",
@@ -9,12 +10,10 @@
     ],
     "port": 9229
 }
-/*
+*/
 
 {
-
   "version": "0.2.0",
-
   "configurations": [
 {
     "type": "chrome",
@@ -24,21 +23,14 @@
     "webRoot": "${workspaceFolder}"
 
   },
-
   {
-
     "type": "chrome",
-
     "request": "attach",
-
     "name": "Attach to Chrome",
     "port": 3000,
-
     "webRoot": "${workspaceFolder}"
-
-  }
-]
-}*/
+  }]
+}
 
 //ng build
 //node ./bin/www

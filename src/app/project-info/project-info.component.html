@@ -12,7 +12,11 @@
   </div>
   <div class="d-flex justify-content-center">
     <div class="d-flex flex-column">
-      <div class="p-2 h5">Electrical Load List</div>
+      <div class="p-2 h5">
+        <a [routerLink]="['/project', project._id, 'electricals']">
+          Electrical Load List
+        </a>
+      </div>
       <div class="p-2 h5">Electrical Equipment List</div>
       <div class="p-2 h5">Cable Schedule</div>
       <div class="p-2 h5">Controller Schedule</div>

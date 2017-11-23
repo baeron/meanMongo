@@ -11,6 +11,8 @@ import { ProjectCreateComponent } from './project-create/project-create.componen
 import { ProjectEditComponent } from './project-edit/project-edit.component';
 import { ProjectDeleteComponent } from './project-delete/project-delete.component';
 import { ProjectInfoComponent } from './project-info/project-info.component';
+import { ElectricalsComponent } from './electricals/electricals.component';
+import { ElectricalCreateComponent } from './electrical-create/electrical-create.component';
 
 const appRoutes: Routes = [
   {
@@ -41,6 +43,14 @@ const appRoutes: Routes = [
     path: 'project/:id',
     component: ProjectInfoComponent
   },
+  {
+    path: 'project/:id/electricals',
+    component: ElectricalsComponent
+  },
+  {
+    path: 'project/:id/electrical-create/:electricalid',
+    component: ElectricalCreateComponent
+  }
 ];
 
 
@@ -52,7 +62,9 @@ const appRoutes: Routes = [
     ProjectCreateComponent,
     ProjectEditComponent,
     ProjectDeleteComponent,
-    ProjectInfoComponent
+    ProjectInfoComponent,
+    ElectricalsComponent,
+    ElectricalCreateComponent
   ],
   imports: [
     BrowserModule,
