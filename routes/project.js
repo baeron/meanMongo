@@ -187,6 +187,82 @@ router.get('/', function(req, res, next) {
     });
   });
   
+/* UPDATE Electrical*/
+router.patch('/:id/electrical-create/:electricalid', function(req, res) {
+  if (req.params && req.params.id && req.params.electricalid) {
+    Project
+      .findById(req.params.id)
+      .exec(
+        function(err, project) {
+          var response, electrical;
+          electrical = project.electricals.id(req.params.electricalid);
+      
+      //Equipment Entry
+          //item number
+          electrical.dateCreate = req.body.dateCreate;
+          electrical.quantity = req.body.quantity;
+          electrical.revision = req.body.revision;
+          electrical.selectedEquipmentType = req.body.selectedEquipmentType;
+          //pid drawing
+          //layout drawing
+          //sld drawing
+          electrical.equipmentTag = req.body.equipmentTag;
+          //parent tag
+          //equipment notes
+          //location area
+          //equipment description
+          //clone tag
+          //new tag
+          electrical.length = req.body.length;
+          electrical.depth = req.body.depth;
+          electrical.height = req.body.height;
+          electrical.weight = req.body.weight;
+          electrical.coordForX = req.body.coordForX;
+          electrical.coordForY = req.body.coordForY;
+          electrical.coordForZ = req.body.coordForZ;
+          electrical.heatDissipation = req.body.heatDissipation;
+          electrical.scenarioFirstLoadFactor = req.body.scenarioFirstLoadFactor;
+      
+      //General Rating
+          electrical.selectedPowerSystem = req.body.selectedPowerSystem;
+          //voltage
+          electrical.totalPF = req.body.totalPF;
+          electrical.totalEFF = req.body.totalEFF;
+          electrical.nameplateRating = req.body.nameplateRating;          
+          electrical.selectedUnits = req.body.selectedUnits;
+          electrical.selectedMotorSF = req.body.selectedMotorSF;
+          electrical.selectedMotorCode = req.body.selectedMotorCode;          
+          electrical.selectedSccRating = req.body.selectedSccRating;
+          electrical.selectedEnclosureRating = req.body.selectedEnclosureRating;
+          electrical.loadFactor = req.body.loadFactor;
+          electrical.selectedLoadDuty = req.body.selectedLoadDuty;
+          //ambient temp
+          //termination temp
+          //operating Temp Min
+          //operating Temp Max
+          //insul description
+          //hazloc class
+          //hazloc Zone
+          //hazloc Group
+          //Hazloc Temp
+          project.save(function(err, electrical){
+            if(err){
+              sendJSONresponse(res, 404, err);
+            } else {
+              sendJSONresponse(res, 200, project);
+            }
+          });
+        }
+      );
+  } else {
+    sendJSONresponse(res, 404, {
+      "message": "Not found, project or electrical id"
+    });
+    return;
+  }
+}
+);
+
   /* DELETE Project */
   router.delete('/:id', function(req, res, next) {
     Project.findByIdAndRemove(req.params.id, req.body, function (err, post) {

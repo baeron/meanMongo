@@ -5,68 +5,17 @@ var electrucalSchema = new mongoose.Schema({
   dateCreate: { type: Date, default: Date.now },
   revision: {type: String, default: 'A'},
   quantity: {type: Number, default: 5},
-  equipmentType: [
-    {
-      name: {type: String, default: 'UTILITY'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'TRANSFORMER'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'SWITCHGEAR'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'MCC'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'VFD'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'DISTRIBUTION PANEL'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'MOTOR'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'MOV'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'HEATER'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'LIGHT'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'RECEPTACLE'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'UPS CHARGER'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'CONTROL PANEL'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'JUNCTION BOX'}, 
-      flag: {type: Boolean, default: false}
-    }
-  ],
+  equipmentType: {
+    type: Array,
+    'default': ['UTILITY', 'TRANSFORMER', 'SWITCHGEAR', 'MCC', 'VFD', 'DISTRIBUTION PANEL', 'MOTOR', 'MOV',
+      'HEATER', 'LIGHT', 'RECEPTACLE', 'UPS CHARGER', 'CONTROL PANEL', 'JUNCTION BOX'
+    ]
+  },
+  selectedEquipmentType: {type: String, default: 'UTILITY'},
   pidDrawing: [{ name : String, flag : Boolean}],
   layoutDrawing: [{ name : String, flag : Boolean}],
   sldDraving: [{ name : String, flag : Boolean}],
-  equipmentTag: String,
+  equipmentTag: {type: String, default: "New Electrical"},
   parentTag: [{ name : String, flag : Boolean}],
   equipmentNotes: String,
   locationArea: [{ name : String, flag : Boolean}],
@@ -84,35 +33,9 @@ var electrucalSchema = new mongoose.Schema({
   scenarioFirstLoadFactor: Number,
   powerSystem: {
     type: Array,
-    'default': [
-      {
-        'name': 'AC-3P', 
-        'flag': false
-      },
-      {
-        'name': 'AC-1P', 
-        'flag': false
-      },
-      {
-        'name': 'DC', 
-        'flag': false
-      }
-    ]
+    'default': ['AC-3P', 'AC-1P', 'DC']
   },
-/*  powerSystem: [
-    {
-      name: {type: String, default: 'AC-3P'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'AC-1P'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'DC'}, 
-      flag: {type: Boolean, default: false}
-    }
-  ],*/
+  selectedPowerSystem: {type: String, default: 'AC-3P'},
   voltage: [
     [
       {
@@ -180,25 +103,18 @@ var electrucalSchema = new mongoose.Schema({
   totalPF: Number,
   totalEFF: Number,
   nameplateRating: Number,
-  units: [
-    {
-      name: {type: String, default: 'A'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'HP'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'KW'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'KWA'}, 
-      flag: {type: Boolean, default: false}
-    }
-  ],
-  motorSF: [
+  units: {
+    type: Array,
+    'default': ['A', 'HP', 'KW', 'KWA']
+  },
+  selectedUnits: {type: String, default: 'A'},
+  motorSF:{
+    type: Array,
+    'default': [1, 1.15, 1.25, 1.35]
+  },
+  selectedMotorSF: {type: Number, default: 1},
+  /*
+  [
     {
       name: {type: Number, default: 1}, 
       flag: {type: Boolean, default: false}
@@ -215,187 +131,45 @@ var electrucalSchema = new mongoose.Schema({
       name: {type: Number, default: 1.35}, 
       flag: {type: Boolean, default: false}
     }
-  ],
-  motorCode: [
-    {
-      name: {type: String, default: "A"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "B"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "C"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "D"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "E"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "F"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "G"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "H"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "J"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "K"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "L"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "M"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "N"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "P"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "R"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "S"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "U"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "V"}, 
-      flag: {type: Boolean, default: false}
-    }
-  ],
-  sccRating: [
-    {
-      name: {type: String, default: "10 KA"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "18 KA"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "22 KA"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "42 KA"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "50 KA"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "65 KA"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "100 KA"}, 
-      flag: {type: Boolean, default: false}
-      }
-  ],
-  enclosureRating: [
-    {
-      name: {type: String, default: "NEMA 1"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "NEMA 2"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "NEMA 3"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "NEMA 3R"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "NEMA 4"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "NEMA 4X"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "NEMA 12"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "NEMA 13"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "WPI"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "WPII"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "TEFC"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "TEFV"}, 
-      flag: {type: Boolean, default: false}
-    }
-  ],
+  ],*/
+  motorCode: {
+    type: Array,
+    'default': [
+      "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "R", "S", "U", "V"
+    ]
+  },
+  selectedMotorCode: {type: String, default: "A"},
+  sccRating: {
+    type: Array,
+    'default': [
+      "10 KA", "18 KA", "22 KA", "42 KA", "50 KA", "65 KA", "100 KA"
+    ]
+  },
+  selectedSccRating: {type: String, default: "10 KA"},
+  enclosureRating: {
+    type: Array,
+    'default': [
+      "NEMA 1", "NEMA 2", "NEMA 3", "NEMA 3R", "NEMA 4", "NEMA 4X", "NEMA 12", "NEMA 13", "WPI", "WPII", "TEFC", "TEFV"
+    ]
+  },
+  selectedEnclosureRating: {type: String, default: "NEMA 1"},
   loadFactor: Number,
-  loadDuty: [
-    {
-      name: {type: String, default: 'Continuous'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'Intermitent'}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: 'Spare'}, 
-      flag: {type: Boolean, default: false}
-    }
-  ],
+  loadDuty: {
+    type: Array,
+    'default': [
+      "Continuous", "Intermitent", "Spare"
+    ]
+  },
+  selectedLoadDuty: {type: String, default: "Continuous"},
   ambientTemp: {type: Number, default: 0},
-  terminationTemp: [
-    {
-      name: {type: Number, default: 75}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: Number, default: 90}, 
-      flag: {type: Boolean, default: false}
-    }
-  ],
+  terminationTemp: 
+  {
+    type: Array,
+    'default': [
+      75, 90
+    ]
+  },
+  selectedTerminationTemp: {type: Number, default: 75},
   operationTempMin: {type: Number, default: 0},
   operationTempMax: {type: Number, default: 0},
   insulDescription: [

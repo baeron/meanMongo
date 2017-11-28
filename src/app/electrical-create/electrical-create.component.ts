@@ -10,6 +10,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ElectricalCreateComponent implements OnInit {
   electricalItem = {};
   selectedObject: any;
+  trueFlag = true;
+  selectedDeviceObj: any;
+  selectedPowerSystem: any;
+
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -18,24 +22,19 @@ export class ElectricalCreateComponent implements OnInit {
   
   //TODO change method to download only electricals on front and back-end
   getElectrical() {
-    this.http.get('/project/5a16fde3c6718700d89aac08/electrical-create/5a16fde7c6718700d89aac09')
+    this.http.get('/project/5a1d757ddb58ee00ccd29568/electrical-create/5a1d7580db58ee00ccd29569')
       .subscribe((data: any) => {
         this.electricalItem = data.electrical;
     });
   }
 
-  updateSelectedValue(event:string): void{
-    this.selectedObject = JSON.parse(event);
+  saveElectrical(idElectrical, data){
+    this.http.patch('/project/5a1d757ddb58ee00ccd29568/electrical-create/' + idElectrical, data)
+    .subscribe(res => {
+      let id = res['_id'];
+      this.router.navigate(['projects']);
+    }, (err) => {
+      console.log(err);
+    });
   }
-  /*saveElectrical() {
-    this.http.post('/project', this.electrical)
-      .subscribe(res => {
-          let id = res['_id'];
-          this.router.navigate(['/projects']);
-        }, (err) => {
-          console.log(err);
-        }
-      );
-  }*/
-
 }
