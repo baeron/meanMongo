@@ -13,6 +13,7 @@ import { ProjectDeleteComponent } from './project-delete/project-delete.componen
 import { ProjectInfoComponent } from './project-info/project-info.component';
 import { ElectricalsComponent } from './electricals/electricals.component';
 import { ElectricalCreateComponent } from './electrical-create/electrical-create.component';
+import { DependencySelectPipe } from './dependency-select.pipe';
 
 const appRoutes: Routes = [
   {
@@ -64,7 +65,8 @@ const appRoutes: Routes = [
     ProjectDeleteComponent,
     ProjectInfoComponent,
     ElectricalsComponent,
-    ElectricalCreateComponent
+    ElectricalCreateComponent,
+    DependencySelectPipe
   ],
   imports: [
     BrowserModule,

@@ -241,8 +241,10 @@ router.patch('/:id/electrical-create/:electricalid', function(req, res) {
           //operating Temp Min
           //operating Temp Max
           //insul description
-          //hazloc class
-          //hazloc Zone
+          electrical.selectedHazlocClass = req.body.selectedHazlocClass;
+          electrical.selectedHazlocZone = req.body.selectedHazlocZone;
+          electrical.selectedHazlocGroup = req.body.selectedHazlocGroup;
+          electrical.selectedHazlocTemperature = req.body.selectedHazlocTemperature;
           //hazloc Group
           //Hazloc Temp
           project.save(function(err, electrical){

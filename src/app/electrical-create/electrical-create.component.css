@@ -1,0 +1,10 @@
+thead th {
+  font-size: 0.6rem;
+}
+tbody tr td  {
+  font-size: 0.6rem;
+}
+.achievements-wrapper {
+  height: auto; 
+  overflow: auto;
+}

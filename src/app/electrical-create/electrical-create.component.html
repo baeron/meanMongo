@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" (window:resize)="onResize($event)">
   <div class="d-flex justify-content-center pt-3">
     <h1>Electrical <strong>{{electricalItem?.equipmentTag}}</strong></h1>
   </div>
@@ -12,7 +12,7 @@
             <div class="col-12 col-sm-3 align-self-end">
               <div class="form-group">
                 <label for="itemNumber">Item number</label>
-                <input type="text" class="form-control" [(ngModel)]="electricalItem.itemNumber" name="itemNumber" disabled>
+                <input type="text" class="form-control"  name="itemNumber" disabled> <!--[(ngModel)]="electricalItem.itemNumber" -->
               </div>
             </div>
             <div class="col-12 col-sm-3 align-self-end">
@@ -36,7 +36,7 @@
           </div>
           <div class="row">
             <div class="col-12 col-sm-3 align-self-end">
-              <div class="form-group" *ngIf="electricalItem.equipmentType != null">
+              <div class="form-group">
                 <label for="equipmentType">Equipment Type</label>
                 <select
                   id="selectedEquipmentType"
@@ -191,7 +191,7 @@
           </div>
           <div class="row">
             <div class="col-12 col-sm-3 align-self-end">
-              <div class="form-group" *ngIf="electricalItem.powerSystem != null">
+              <div class="form-group">
                 <label for="powerSystem">Power System</label>
                 <select
                   id="selectedPowerSystem"
@@ -235,7 +235,7 @@
               </div>
             </div>
             <div class="col-12 col-sm-3 align-self-end">
-              <div class="form-group" *ngIf="electricalItem.units != null">
+              <div class="form-group">
                 <label for="units">Units</label>
                 <select
                   id="selectedUnits"
@@ -254,7 +254,7 @@
               </div>
             </div>
             <div class="col-12 col-sm-3 align-self-end">
-              <div class="form-group" *ngIf="electricalItem.motorSF != null">
+              <div class="form-group">
                 <label for="selectedMotorSF">Motor S.F.</label>
                 <select
                 id="selectedMotorSF"
@@ -273,7 +273,7 @@
               </div>
             </div>
             <div class="col-12 col-sm-3 align-self-end">
-              <div class="form-group" *ngIf="electricalItem.motorCode != null">
+              <div class="form-group">
                 <label for="motorCode">Motor Code</label>
                 <select
                 id="selectedMotorCode"
@@ -294,7 +294,7 @@
           </div>
           <div class="row">
             <div class="col-12 col-sm-3 align-self-end">
-              <div class="form-group" *ngIf="electricalItem.sccRating != null">
+              <div class="form-group">
                 <label for="selectedSccRating">SCC Rating</label>
                 <select
                 id="selectedSccRating"
@@ -313,7 +313,7 @@
               </div>
             </div>
             <div class="col-12 col-sm-3 align-self-end">
-              <div class="form-group" *ngIf="electricalItem.enclosureRating != null">
+              <div class="form-group">
                 <label for="selectedEnclosureRating">Enclosure Rating</label>
                 <select
                 id="selectedEnclosureRating"
@@ -338,7 +338,7 @@
               </div>
             </div>
             <div class="col-12 col-sm-3 align-self-end">
-              <div class="form-group" *ngIf="electricalItem.loadDuty != null">
+              <div class="form-group">
                 <label for="selectedLoadDuty">Load Duty</label>
                 <select
                 id="selectedLoadDuty"
@@ -402,43 +402,100 @@
               </div>
               <div class="row">
                 <div class="col-3">
-                  <label>first</label>
+                  <label><strong>{{electricalItem?.selectedHazlocClass}}</strong></label>
                 </div>
                 <div class="col-3">
-                  <label>second</label>
+                  <label><strong>{{electricalItem?.selectedHazlocZone}}</strong></label>
                 </div>
                 <div class="col-3">
-                  <label>third</label>
+                  <label><strong>{{electricalItem?.selectedHazlocGroup}}</strong></label>
                 </div>
                 <div class="col-3">
-                  <label>fourth</label>
+                  <label><strong>{{electricalItem?.selectedHazlocTemperature}}</strong></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem?.hazlocClass != null">
+                  <div class="form-group">
+                    <label for="selectedHazlocClass">Hazloc Class</label>
+                    <select
+                    id="selectedHazlocClass"
+                    class="form-control"
+                    [(ngModel)]="electricalItem.selectedHazlocClass"
+
+                    (ngModelChange)="optionChanged($event)"
+                    name="selectedHazlocClass"
+                    >
+                      <option
+                        *ngFor="let currentHazlocClass of electricalItem.hazlocClass" 
+                        [ngValue]="currentHazlocClass"
+                        [selected]="currentHazlocClass==electricalItem.selectedHazlocClass"
+                      >
+                        {{currentHazlocClass}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem?.hazlocZone != null">
+                  <div class="form-group">
+                    <label for="selectedHazlocZone">Hazloc Zone</label>
+                    <select [disabled]="electricalItem.selectedHazlocClass == electricalItem.hazlocClass[0] || !electricalItem.selectedHazlocClass"
+                    id="selectedHazlocZone"
+                    class="form-control"
+                    [(ngModel)]="electricalItem.selectedHazlocZone"
+                    #selectedHazlocZone="ngModel"
+                    name="selectedHazlocZone"
+                    >
+                      <option
+                        *ngFor="let currentHazlocZone of electricalItem.hazlocZone" 
+                        [ngValue]="currentHazlocZone"
+                        [selected]="currentHazlocZone==electricalItem.selectedHazlocZone"
+                      >
+                        {{currentHazlocZone}}
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12 col-sm-6 align-self-end">
-                  <div class="form-group">
-                    <label for="l">Hazloc Class</label>
-                    <input class="form-control">
+                  <div class="form-group" *ngIf="electricalItem?.hazlocGroup != null">
+                    <label for="selectedHazlocGroup">Hazloc Group</label>
+                    <select [disabled]="electricalItem.selectedHazlocClass == electricalItem.hazlocClass[0] || !electricalItem.selectedHazlocClass"
+                    id="selectedHazlocGroup"
+                    class="form-control"
+                    [(ngModel)]="electricalItem.selectedHazlocGroup"
+                    #selectedHazlocGroup="ngModel"
+                    name="selectedHazlocGroup"
+                    >
+                      <option
+                        *ngFor="let currentHazlocGroup of electricalItem.hazlocGroup" 
+                        [ngValue]="currentHazlocGroup"
+                        [selected]="currentHazlocGroup==electricalItem.selectedHazlocGroup"
+                      >
+                        {{currentHazlocGroup}}
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-12 col-sm-6 align-self-end">
-                  <div class="form-group">
-                    <label for="b">Hazloc Zone</label>
-                    <input class="form-control">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-sm-6 align-self-end">
-                  <div class="form-group">
-                    <label for="u">Hazloc Group</label>
-                    <input class="form-control">
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 align-self-end">
-                  <div class="form-group">
-                    <label for="o">Hazloc Temperature</label>
-                    <input class="form-control">
+                  <div class="form-group" *ngIf="electricalItem?.hazlocGroup != null">
+                    <label for="selectedHazlocTemperature">Hazloc Temperature</label>
+                    <select [disabled]="electricalItem.selectedHazlocClass == electricalItem.hazlocClass[0] || !electricalItem.selectedHazlocClass"
+                    id="selectedHazlocTemperature"
+                    class="form-control"
+                    [(ngModel)]="electricalItem.selectedHazlocTemperature"
+                    #selectedHazlocTemperature="ngModel"
+                    name="selectedHazlocTemperature"
+                    >
+                      <option
+                        *ngFor="let currentHazlocTemperature of electricalItem.hazlocTemperature" 
+                        [ngValue]="currentHazlocTemperature"
+                        [selected]="currentHazlocTemperature==electricalItem.selectedHazlocTemperature"
+                      >
+                        {{currentHazlocTemperature}}
+                      </option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -446,9 +503,193 @@
           </div>
         </div>
     </div>
-    <div class="form-group">
-      <a routerLink="/project/5a16fde3c6718700d89aac08/electricals/" class="btn btn-primary">Back</a>
-      <button type="submit" class="btn btn-success" [disabled]="!electricalForm.form.valid">Update/Create</button>
+    <div class="row">
+      <div class="form-group">
+        <a routerLink="/project/5a1ed5f11af5b524cc2b4129/electricals/" class="btn btn-primary">Back</a>
+        <button type="submit" class="btn btn-success" [disabled]="!electricalForm.form.valid">Update/Create</button>
+      </div>
     </div>
+    <div *ngIf="sizeWindow > 576; else werticalTable">
+      <div class="row achievements-wrapper">
+        <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Rev.</th>
+            <th>Equipment Tag</th>
+            <th>Equipment Description</th>
+            <th>Load Type</th>
+            <th>System Voltage</th>
+            <th>Power System</th>
+            <th>Nameplate Rating</th>
+            <th>Units</th>
+            <th>Total % PF</th>
+            <th>Total % EFF</th>
+            <th>Motor SF</th>
+            <th>Motor Code</th>
+            <th>Load Factor %</th>
+            <th>Load Duty</th>
+            <th>Total Connected FLA</th>
+            <th>Total Connected KW</th>
+            <th>Total Connected KVAR</th>
+            <th>Total Connected KVA</th>
+            <th>Total Demand FLA</th>
+            <th>Total Demand KW</th>
+            <th>Total Demand KVAR</th>
+            <th>Total Demand KVA</th>
+            <th>Total Scenario 1 Load Factor %</th>
+            <th>Total Scenario 1 FLA</th>
+            <th>Total Scenario 1 KW</th>
+            <th>Total Scenario 1 KVAR</th>
+            <th>Total Scenario 1 KVA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{electricalItem?.revision}}</td>
+            <td>{{electricalItem?.equipmentTag}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{electricalItem?.selectedPowerSystem}}</td>
+            <td>{{electricalItem?.nameplateRating}}</td>
+            <td>{{electricalItem?.selectedUnits}}</td>
+            <td>{{electricalItem?.totalPF}}</td>
+            <td>{{electricalItem?.totalEFF}}</td>
+            <td>{{electricalItem?.loadFactor}}</td>
+            <td>{{electricalItem?.selectedLoadDuty}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
+    <ng-template #werticalTable>
+      <div class="row">
+        <table class="table table-bordered">
+          <tr>
+            <td><strong>Rev.</strong></td>
+            <td>{{electricalItem?.revision}}</td>
+          </tr>
+          <tr>
+            <td><strong>Equipment Tag</strong></td>
+            <td>{{electricalItem?.equipmentTag}}</td>
+          </tr>
+          <tr>
+            <td><strong>Equipment Description</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Load Type</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>System Voltage</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Power System</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Nameplate Rating</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Units</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total % PF</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total % EFF</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Motor SF</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Motor Code</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Load Factor %</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Load Duty</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Connected FLA</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Connected KW</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Connected KVAR</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Connected KVA</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Demand FLA</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Demand KW</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Demand KVAR</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Demand KVA</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Scenario 1 Load Factor %</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Scenario 1 FLA</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Scenario 1 KW</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Scenario 1 KVAR</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Total Scenario 1 KVA</strong></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </ng-template>
   </form>
 </div>

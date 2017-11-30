@@ -190,47 +190,23 @@ var electrucalSchema = new mongoose.Schema({
       flag: {type: Boolean, default: false}
     }
   ],
-  hazlocClass: [
-    {
-      name: {type: String, default: "General"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "Class 1"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "Class 2"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "Class 3"}, 
-      flag: {type: Boolean, default: false}
-    }
-  ],
-  hazlocZone: [
-    {
-      name: {type: String, default: "Zone 0"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "Zone 1"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "Zone 2"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "Division 1"}, 
-      flag: {type: Boolean, default: false}
-    },
-    {
-      name: {type: String, default: "Division 2"}, 
-      flag: {type: Boolean, default: false}
-    }
-  ],
-  hazlocGroup: [
+  hazlocClass: {
+    type: Array,
+    'default': ["General", "Class 1", "Class 2", "Class 3"]
+  },
+  selectedHazlocClass: String,
+  hazlocZone:  {
+    type: Array,
+    'default': ["Zone 0", "Zone 1", "Zone 2", "Division 1", "Division 2"]
+  },
+  selectedHazlocZone: String,
+
+  hazlocGroup: {
+    type: Array,
+    'default': ["Group IIA", "Group IIB", "Group IIA"]
+  },
+  selectedHazlocGroup: String,
+  /*[
     {
       name: {type: String, default: "Group IIA"}, 
       flag: {type: Boolean, default: false}
@@ -243,8 +219,15 @@ var electrucalSchema = new mongoose.Schema({
       name: {type: String, default: "Group IIA"}, 
       flag: {type: Boolean, default: false}
     }, { minimize: false }
-  ],
-  hazlocTemperature: [
+  ],*/
+  hazlocTemperature: {
+    type: Array,
+    'default': ["T1 450 \u00B0С", "T2 300 \u00B0С", "T2A 280 \u00B0С", "T2B 260 \u00B0С", "T2C 230 \u00B0С", "T2D 215 \u00B0С",
+      "T3 200 \u00B0С", "T3A 180 \u00B0С", "T3B 165 \u00B0С", "T3C 160 \u00B0С", "T4 135 \u00B0С", "T4A 120 \u00B0С", "T5 100 \u00B0С", "T6 85 \u00B0С"
+    ]
+  },
+  selectedHazlocTemperature: String,
+  /*[
     {
       name: {type: String, default: "T1 450 \u00B0С"}, 
       flag: {type: Boolean, default: false}
@@ -301,7 +284,7 @@ var electrucalSchema = new mongoose.Schema({
       name: {type: String, default: "T6 85 \u00B0С"}, 
       flag: {type: Boolean, default: false}
     }
-  ]
+  ]*/
 });
 
 
