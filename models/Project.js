@@ -9,17 +9,33 @@ var electrucalSchema = new mongoose.Schema({
     type: Array,
     'default': ['UTILITY', 'TRANSFORMER', 'SWITCHGEAR', 'MCC', 'VFD', 'DISTRIBUTION PANEL', 'MOTOR', 'MOV',
       'HEATER', 'LIGHT', 'RECEPTACLE', 'UPS CHARGER', 'CONTROL PANEL', 'JUNCTION BOX'
-    ]
+    ],
   },
+  /*
+  equipmentType: {
+    type: Array, 
+    default: ['UTILITY', 'TRANSFORMER', 'SWITCHGEAR', 'MCC', 'VFD', 'DISTRIBUTION PANEL', 'MOTOR', 'MOV',
+      'HEATER', 'LIGHT', 'RECEPTACLE', 'UPS CHARGER', 'CONTROL PANEL', 'JUNCTION BOX'
+    ]
+  },*/
   selectedEquipmentType: {type: String, default: 'UTILITY'},
-  pidDrawing: [{ name : String, flag : Boolean}],
-  layoutDrawing: [{ name : String, flag : Boolean}],
-  sldDraving: [{ name : String, flag : Boolean}],
+  //
+  pidDrawing: [{type: String}],
+  selectedPidDrawing: String,
+  layoutDrawing: [{type: String}],
+  selectedLayoutDrawing: String,
+  //
+  //layoutDrawing: [{ name : String, flag : Boolean}],
+  sldDraving: [{ type: String}],
+  selectedSldDraving: String,
+
   equipmentTag: {type: String, default: "New Electrical"},
   parentTag: [{ name : String, flag : Boolean}],
   equipmentNotes: String,
-  locationArea: [{ name : String, flag : Boolean}],
-  equipmentDescription: [{ name : String, flag : Boolean}],
+  locationArea: [{type: String}],
+  selectedLocationArea: String,
+  equipmentDescription: [{type: String}],
+  selectedEquipmentDescription: String,
   //clone tag
   //new tag
   length: Number,
@@ -35,8 +51,31 @@ var electrucalSchema = new mongoose.Schema({
     type: Array,
     'default': ['AC-3P', 'AC-1P', 'DC']
   },
-  selectedPowerSystem: {type: String, default: 'AC-3P'},
-  voltage: [
+  selectedPowerSystem: String,
+  voltage: {
+    type: Array,
+    'default': [
+        {name: '4160 VAC', powerSystemType: 'AC-3P'},
+        {name: '600 VAC', powerSystemType: 'AC-3P'},
+        {name: '480 VAC', powerSystemType: 'AC-3P'},
+        {name: '208 VAC', powerSystemType: 'AC-3P'},
+        {name: '2400 VAC', powerSystemType: 'AC-1P'},
+        {name: '347 VAC', powerSystemType: 'AC-1P'},
+        {name: '277 VAC', powerSystemType: 'AC-1P'},
+        {name: '240 VAC', powerSystemType: 'AC-1P'},
+        {name: '120 VAC', powerSystemType: 'AC-1P'},
+        {name: '125 VDC', powerSystemType: 'DC'},
+        {name: '48 VDC', powerSystemType: 'DC'},
+        {name: '12 VDC', powerSystemType: 'DC'},
+        {name: '4-20 mA', powerSystemType: 'DC'},
+        {name: '1-5 mVDC', powerSystemType: 'DC'}
+    ]
+  },
+  selectedVoltage:{
+    name: {type: String, default: '4160 VAC'},
+    powerSystemType: {type: String, default: 'AC-3P'}
+  },
+/*  voltage: [
     [
       {
         name: {type: String, default: '4160 VAC'}, 
@@ -100,7 +139,8 @@ var electrucalSchema = new mongoose.Schema({
       }
     ]
   ],
-  totalPF: Number,
+  */
+  totalPF: {type: Number, default: 0},
   totalEFF: Number,
   nameplateRating: Number,
   units: {
@@ -161,7 +201,7 @@ var electrucalSchema = new mongoose.Schema({
     ]
   },
   selectedLoadDuty: {type: String, default: "Continuous"},
-  ambientTemp: {type: Number, default: 0},
+  ambientTemp: {type: Number},
   terminationTemp: 
   {
     type: Array,
@@ -169,10 +209,18 @@ var electrucalSchema = new mongoose.Schema({
       75, 90
     ]
   },
-  selectedTerminationTemp: {type: Number, default: 75},
-  operationTempMin: {type: Number, default: 0},
-  operationTempMax: {type: Number, default: 0},
-  insulDescription: [
+  selectedTerminationTemp: {type: Number},
+  operationTempMin: {type: Number},
+  operationTempMax: {type: Number},
+  insulDescription: {
+    type: Array,
+    'default': [
+      "Class A(105 \u00B0С)", "Class B(130 \u00B0С)", "Class F(155 \u00B0C)", "Class A(180 \u00B0C)"
+    ]
+  },
+  selectedInsulDescription: {type: String},
+  /*
+  [
     {
       name: {type: String, default: "Class A(105 \u00B0С)"}, 
       flag: {type: Boolean, default: false}
@@ -189,7 +237,7 @@ var electrucalSchema = new mongoose.Schema({
       name: {type: String, default: "Class A(180 \u00B0C)"}, 
       flag: {type: Boolean, default: false}
     }
-  ],
+  ],*/
   hazlocClass: {
     type: Array,
     'default': ["General", "Class 1", "Class 2", "Class 3"]
@@ -285,6 +333,7 @@ var electrucalSchema = new mongoose.Schema({
       flag: {type: Boolean, default: false}
     }
   ]*/
+  totalConectedFla: Number,
 });
 
 

@@ -1,0 +1,17 @@
+.modal {
+  background: rgba(0,0,0,0.6);
+  padding-top: 3rem;
+}
+
+.modal-dialog {
+  max-width: 350px!important;
+}
+input::placeholder {
+  color: gray;
+  font-style: italic;
+}
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */

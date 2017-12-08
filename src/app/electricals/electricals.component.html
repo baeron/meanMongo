@@ -18,7 +18,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let electrical of project.electricals">
-          <td><a routerLink="/project/5a1ed5f11af5b524cc2b4129/electrical-create/5a1ed5f61af5b524cc2b412a">{{electrical.revision}}</a></td>
+          <td><a routerLink="/project/{{projectId}}/electrical-create/{{electrical._id}}">{{electrical.revision}}</a></td>
           <td>{{electrical.quantity}}</td>
         </tr>
       </tbody>

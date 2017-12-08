@@ -100,7 +100,7 @@ router.get('/', function(req, res, next) {
     );
 
     /* SAVE Electrical */
-    router.post('/:id/electricals', function(req, res, next) {
+    router.post('/:id/electricals', function(req, res) {
       if (req.params.id) {
         Project
           .findById(req.params.id)
@@ -152,8 +152,8 @@ router.get('/', function(req, res, next) {
                     hazlocClass:              req.body.hazlocClass,
                     hazlocZone:               req.body.hazlocZone,
                     hazlocGroup:              req.body.hazlocGroup,
-                    hazlocTemperature:        req.body.hazlocTemperature*/
-                });
+                    hazlocTemperature:        req.body.hazlocTemperature
+                  */});
                 project.save(function(err, project) {
                   if (err) {
                     sendJSONresponse(res, 400, err);
@@ -195,22 +195,27 @@ router.patch('/:id/electrical-create/:electricalid', function(req, res) {
       .exec(
         function(err, project) {
           var response, electrical;
-          electrical = project.electricals.id(req.params.electricalid);
-      
+          electrical = project.electricals.id(req.params.electricalid);     
       //Equipment Entry
           //item number
           electrical.dateCreate = req.body.dateCreate;
           electrical.quantity = req.body.quantity;
           electrical.revision = req.body.revision;
+          electrical.equipmentType = req.body.equipmentType;
           electrical.selectedEquipmentType = req.body.selectedEquipmentType;
-          //pid drawing
-          //layout drawing
-          //sld drawing
+          electrical.pidDrawing = req.body.pidDrawing;
+          electrical.selectedPidDrawing = req.body.selectedPidDrawing;
+          electrical.layoutDrawing = req.body.layoutDrawing;
+          electrical.selectedLayoutDrawing = req.body.selectedLayoutDrawing;
+          electrical.sldDraving = req.body.sldDraving;
+          electrical.selectedSldDraving = req.body.selectedSldDraving;
           electrical.equipmentTag = req.body.equipmentTag;
+          electrical.locationArea = req.body.locationArea;
+          electrical.selectedLocationArea = req.body.selectedLocationArea;
+          electrical.equipmentDescription = req.body.equipmentDescription;
+          electrical.selectedEquipmentDescription = req.body.selectedEquipmentDescription;
           //parent tag
           //equipment notes
-          //location area
-          //equipment description
           //clone tag
           //new tag
           electrical.length = req.body.length;
@@ -221,11 +226,11 @@ router.patch('/:id/electrical-create/:electricalid', function(req, res) {
           electrical.coordForY = req.body.coordForY;
           electrical.coordForZ = req.body.coordForZ;
           electrical.heatDissipation = req.body.heatDissipation;
-          electrical.scenarioFirstLoadFactor = req.body.scenarioFirstLoadFactor;
-      
+          electrical.scenarioFirstLoadFactor = req.body.scenarioFirstLoadFactor;     
       //General Rating
           electrical.selectedPowerSystem = req.body.selectedPowerSystem;
-          //voltage
+          electrical.voltage = req.body.voltage;
+          electrical.selectedVoltage = req.body.selectedVoltage;
           electrical.totalPF = req.body.totalPF;
           electrical.totalEFF = req.body.totalEFF;
           electrical.nameplateRating = req.body.nameplateRating;          
@@ -236,17 +241,17 @@ router.patch('/:id/electrical-create/:electricalid', function(req, res) {
           electrical.selectedEnclosureRating = req.body.selectedEnclosureRating;
           electrical.loadFactor = req.body.loadFactor;
           electrical.selectedLoadDuty = req.body.selectedLoadDuty;
-          //ambient temp
-          //termination temp
-          //operating Temp Min
-          //operating Temp Max
-          //insul description
+          electrical.ambientTemp = req.body.ambientTemp;
+          electrical.selectedTerminationTemp = req.body.selectedTerminationTemp;
+          electrical.operationTempMin = req.body.operationTempMin;
+          electrical.operationTempMax = req.body.operationTempMax;
+          electrical.selectedInsulDescription = req.body.selectedInsulDescription;
           electrical.selectedHazlocClass = req.body.selectedHazlocClass;
+          electrical.hazlocZone = req.body.hazlocZone;
           electrical.selectedHazlocZone = req.body.selectedHazlocZone;
           electrical.selectedHazlocGroup = req.body.selectedHazlocGroup;
+          electrical.hazlocTemperature = req.body.hazlocTemperature;
           electrical.selectedHazlocTemperature = req.body.selectedHazlocTemperature;
-          //hazloc Group
-          //Hazloc Temp
           project.save(function(err, electrical){
             if(err){
               sendJSONresponse(res, 404, err);

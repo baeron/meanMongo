@@ -1,0 +1,45 @@
+<div style="padding-top: 10rem;"
+(click)="onContainerClicked($event)" class="modal fade" tabindex="-1" [ngClass]="{'in': visibleAnimate}"
+[ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="modalFlag">
+          <div>
+            <p>Are you sure you want to delete <strong>{{selectedValue}}</strong> item</p>
+          </div>
+        </div>
+        <div *ngIf="!modalFlag" class="form-inline">
+          <label class="pr-2"><strong>Item name:</strong></label>
+          <input 
+            class="form-control" 
+            name="itenElement" 
+            [(ngModel)]="itenElement" 
+            placeholder='Input new name value'
+            onfocus="this.placeholder = ''"
+            onblur="this.placeholder = 'Input new name value'"  
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="d-flex justify-content-end">
+            <div class="form-group pr-1">
+              <button *ngIf="modalFlag" class="btn btn-danger" (click)="deleteItem(selectedValue)">Delete</button>
+              <button *ngIf="!modalFlag" class="btn btn-success" (click)="addItem(itenElement)" [disabled]="!itenElement">Add</button>
+            </div>
+            <div class="pl-1 pr-2">
+              <button class="btn btn-primary" (click)="close()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

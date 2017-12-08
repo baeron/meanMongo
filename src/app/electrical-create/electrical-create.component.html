@@ -15,19 +15,19 @@
                 <input type="text" class="form-control"  name="itemNumber" disabled> <!--[(ngModel)]="electricalItem.itemNumber" -->
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="dateCreate">Date added</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.dateCreate" name="dateCreate">
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="revision">Revision</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.revision" name="revision">
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="quantity">Quantity</label>
                 <input type="number" class="form-control" [(ngModel)]="electricalItem.quantity" name="quantity">
@@ -35,63 +35,177 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="equipmentType">Equipment Type</label>
-                <select
-                  id="selectedEquipmentType"
-                  class="form-control"
-                  [(ngModel)]="electricalItem.selectedEquipmentType"
-                  name="selectedEquipmentType"
+                <div class="d-flex flex-row">
+                  <select
+                    [disabled]="electricalItem.equipmentType.length == 0"
+                    id="selectedEquipmentType"
+                    class="form-control selectForOpenModal"
+                    [(ngModel)]="electricalItem.selectedEquipmentType"
+                    name="selectedEquipmentType"
                   >
-                  <option
-                    *ngFor="let currentEquipmentType of electricalItem.equipmentType" 
-                    [ngValue]="currentEquipmentType"
-                    [selected]="currentEquipmentType==electricalItem.selectedEquipmentType">
-                      {{currentEquipmentType}}
-                  </option>
-                </select>
+                    <option
+                      *ngFor="let currentEquipmentType of electricalItem.equipmentType" 
+                      [ngValue]="currentEquipmentType"
+                      [selected]="currentEquipmentType==electricalItem.selectedEquipmentType">
+                        {{currentEquipmentType}}
+                    </option>
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnPlus fa fa-plus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add new item"
+                    (click)="equipmentTypeModal.showAddModal()"
+                  ></button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnMinus fa fa-minus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Drop selected item"
+                    (click)="equipmentTypeModal.showDropModal(dropElementFlag)"
+                    [disabled]="electricalItem.equipmentType.length == 0"
+                  ></button>
+                </div>
               </div>            
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
-                <label for="pidDrawing">Pid Drawing</label>
-                <input type="text" class="form-control" [(ngModel)]="electricalItem.pidDrawing" name="pidDrawing" disabled>
+                <label for="selectedPidDrawing">Pid Drawing</label>
+                <div class="d-flex flex-row">
+                  <select 
+                    [disabled]="electricalItem.pidDrawing.length == 0"
+                    id="selectedPidDrawing"
+                    class="form-control selectForOpenModal"
+                    [(ngModel)]="electricalItem.selectedPidDrawing"
+                    name="selectedPidDrawing"
+                  >
+                    <option
+                      *ngFor="let currentPidDrawing of electricalItem.pidDrawing" 
+                      [ngValue]="currentPidDrawing"
+                      [selected]="currentPidDrawing==electricalItem.selectedPidDrawing">
+                        {{currentPidDrawing}}
+                    </option>
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnPlus fa fa-plus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add new item"
+                    (click)="pidDrawingModal.showAddModal()"
+                  ></button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnMinus fa fa-minus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Drop selected item"
+                    (click)="pidDrawingModal.showDropModal(dropElementFlag)"
+                    [disabled]="electricalItem.pidDrawing.length == 0"
+                  ></button>
+                </div>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="layoutDrawing">Layout Drawing</label>
-                <input type="text" class="form-control" [(ngModel)]="electricalItem.layoutDrawing" name="layoutDrawing" disabled>
+                <div class="d-flex flex-row">
+                  <select [disabled]="electricalItem.layoutDrawing.length == 0"
+                    id="selectedLayoutDrawing"
+                    class="form-control selectForOpenModal"
+                    [(ngModel)]="electricalItem.selectedLayoutDrawing"
+                    name="selectedLayoutDrawing"
+                  >
+                    <option
+                      *ngFor="let currentLayoutDrawing of electricalItem.layoutDrawing" 
+                      [ngValue]="currentLayoutDrawing"
+                      [selected]="currentLayoutDrawing==electricalItem.selectedLayoutDrawing">
+                        {{currentLayoutDrawing}}
+                    </option>
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnPlus fa fa-plus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add new item"
+                    (click)="layoutDrawingModal.showAddModal()"
+                  ></button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnMinus fa fa-minus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Drop selected item"
+                    (click)="layoutDrawingModal.showDropModal(dropElementFlag)"
+                    [disabled]="electricalItem.layoutDrawing.length == 0"
+                  ></button>
+                </div>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="sldDraving">SLD Drawing</label>
-                <input type="number" class="form-control" [(ngModel)]="electricalItem.sldDraving" name="sldDraving" disabled>
+                <div class="d-flex flex-row">
+                  <select [disabled]="electricalItem.sldDraving.length == 0"
+                    id="selectedSldDraving"
+                    class="form-control selectForOpenModal"
+                    [(ngModel)]="electricalItem.selectedSldDraving"
+                    name="selectedSldDraving"
+                  >
+                    <option
+                      *ngFor="let currentSldDraving of electricalItem.sldDraving" 
+                      [ngValue]="currentSldDraving"
+                      [selected]="currentSldDraving==electricalItem.selectedSldDraving">
+                        {{currentSldDraving}}
+                    </option>
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnPlus fa fa-plus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add new item"
+                    (click)="sldDravingModal.showAddModal()"
+                  ></button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnMinus fa fa-minus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Drop selected item"
+                    (click)="sldDravingModal.showDropModal(dropElementFlag)"
+                    [disabled]="electricalItem.sldDraving.length == 0"
+                  ></button>
+                </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="equipmentTag">Equipment Tag</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.equipmentTag" name="equipmentTag" >
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="equipmentTag2">Equipment Tag 2</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.equipmentTag" name="equipmentTag2" disabled>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="parentTag">Parent Tag</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.parentTag" name="parentTag" disabled>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="equipmentNotes">Equipment Notes</label>
                 <input type="number" class="form-control" [(ngModel)]="electricalItem.equipmentNotes" name="equipmentNotes">
@@ -99,51 +213,114 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="locationArea">Location/Area</label>
-                <input type="text" class="form-control" [(ngModel)]="electricalItem.locationArea" name="locationArea" disabled>
+                <div class="d-flex flex-row">
+                  <select [disabled]="electricalItem.locationArea.length == 0"
+                    id="selectedLocationArea"
+                    class="form-control selectForOpenModal"
+                    [(ngModel)]="electricalItem.selectedLocationArea"
+                    name="selectedLocationArea"
+                  >
+                    <option
+                      *ngFor="let currentLocationArea of electricalItem.locationArea" 
+                      [ngValue]="currentLocationArea"
+                      [selected]="currentLocationArea==electricalItem.selectedLocationArea">
+                        {{currentLocationArea}}
+                    </option>
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnPlus fa fa-plus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add new item"
+                    (click)="locationAreaModal.showAddModal()"
+                  ></button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnMinus fa fa-minus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Drop selected item"
+                    (click)="locationAreaModal.showDropModal(dropElementFlag)"
+                    [disabled]="electricalItem.locationArea.length == 0"
+                  >
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
-                <label for="equipmentDescription">Equipment Description</label>
-                <input type="text" class="form-control" [(ngModel)]="electricalItem.equipmentDescription" name="equipmentDescription" disabled>
+                <label for="selectedEquipmentDescription">Equipment Description</label>
+                <div class="d-flex flex-row">
+                  <select [disabled]="electricalItem.equipmentDescription.length == 0"
+                    id="selectedEquipmentDescription"
+                    class="form-control selectForOpenModal"
+                    [(ngModel)]="electricalItem.selectedEquipmentDescription"
+                    name="selectedEquipmentDescription"
+                  >
+                    <option
+                      *ngFor="let currentEquipmentDescription of electricalItem.equipmentDescription" 
+                      [ngValue]="currentEquipmentDescription"
+                      [selected]="currentEquipmentDescription==electricalItem.selectedEquipmentDescription">
+                        {{currentEquipmentDescription}}
+                    </option>
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnPlus fa fa-plus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add new item"
+                    (click)="equipmentDescriptionModal.showAddModal()"
+                  ></button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnMinus fa fa-minus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Drop selected item"
+                    (click)="equipmentDescriptionModal.showDropModal(dropElementFlag)"
+                    [disabled]="electricalItem.equipmentDescription.length == 0"
+                  ></button>
+                </div>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="cloneTag">Clone Tag</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.cloneTag" name="cloneTag" disabled>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="newTag">New Tag</label>
-                <input type="number" class="form-control" [(ngModel)]="electricalItem.newTag" name="newTag">
+                <input type="text" class="form-control" [(ngModel)]="electricalItem.newTag" name="newTag">
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
-                <label for="locationArea">Length(mm)</label>
+                <label for="length">Length(mm)</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.length" name="length" >
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="depth">Depth(mm)</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.depth" name="depth">
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="height">Height(mm)</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.height" name="height">
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="weight">Weight(kg)</label>
                 <input type="number" class="form-control" [(ngModel)]="electricalItem.weight" name="weight">
@@ -151,25 +328,25 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="coordForX">X Coord(m)</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.coordForX" name="coordForX" >
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="coordForY">Y Coord(m)</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.coordForY" name="coordForY">
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="coordForZ">Z Coord(m)</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.coordForZ" name="coordForZ">
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="heatDissipation">Heat Dissipation (W)</label>
                 <input type="number" class="form-control" [(ngModel)]="electricalItem.heatDissipation" name="heatDissipation">
@@ -177,7 +354,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="scenarioFirstLoadFactor">Scenario 1 Load Factor %</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.scenarioFirstLoadFactor" name="scenarioFirstLoadFactor" >
@@ -190,37 +367,71 @@
             <span class="h4">General Rating</span>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
-                <label for="powerSystem">Power System</label>
+                <label for="selectedPowerSystem">Power System</label>
                 <select
                   id="selectedPowerSystem"
                   class="form-control"
                   [(ngModel)]="electricalItem.selectedPowerSystem"
+                  (change)="typeChanged()"
                   name="selectedPowerSystem"
-                  >
+                >
                   <option
-                    *ngFor="let currentData of electricalItem.powerSystem" 
-                    [ngValue]="currentData"
-                    [selected]="currentData==electricalItem.selectedPowerSystem">
-                      {{currentData}}
+                    *ngFor="let currentPowerSystem of electricalItem.powerSystem" 
+                    [ngValue]="currentPowerSystem"
+                    [selected]="currentPowerSystem==electricalItem.selectedPowerSystem"
+                  >
+                    {{currentPowerSystem}}
                   </option>
                 </select>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
-                <label for="voltage">Voltage</label>
-                <input type="text" class="form-control" [(ngModel)]="electricalItem.voltage" name="voltage" disabled>
+                <label for="selectedVoltage">Voltage</label>
+                <div class="d-flex flex-row">
+                  <select
+                    id="selectedVoltage"
+                    class="form-control selectForOpenModal"
+                    [(ngModel)]="electricalItem.selectedVoltage.name"
+                    name="selectedVoltage"
+                  >
+                    <option
+                      *ngFor="let currentVoltage of productsAfterChangeEvent"
+                      [ngValue]="currentVoltage.name"
+                      [selected]="currentVoltage.name == electricalItem.selectedVoltage.name"
+                    >
+                      {{currentVoltage.name}}
+                    </option>
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnPlus fa fa-plus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add new item"
+                    (click)="voltageModal.showAddModal()"
+                  ></button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btnMinus fa fa-minus"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Drop selected item"
+                    (click)="voltageModal.showDropModal(dropElementFlag)"
+                    [disabled]="productsAfterChangeEvent.length == 0"
+                  ></button>
+                </div>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="totalPF">Total % P.F.</label>
                 <input type="number" class="form-control" [(ngModel)]="electricalItem.totalPF" name="totalPF">
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="totalEFF">Total % EFF.</label>
                 <input type="number" class="form-control" [(ngModel)]="electricalItem.totalEFF" name="totalEFF">
@@ -228,13 +439,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="nameplateRating">Nameplate Rating</label>
                 <input type="text" class="form-control" [(ngModel)]="electricalItem.nameplateRating" name="nameplateRating">
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="units">Units</label>
                 <select
@@ -253,14 +464,14 @@
                 </select>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="selectedMotorSF">Motor S.F.</label>
                 <select
-                id="selectedMotorSF"
-                class="form-control"
-                [(ngModel)]="electricalItem.selectedMotorSF"
-                name="selectedMotorSF"
+                  id="selectedMotorSF"
+                  class="form-control"
+                  [(ngModel)]="electricalItem.selectedMotorSF"
+                  name="selectedMotorSF"
                 >
                   <option
                     *ngFor="let currentMotorSF of electricalItem.motorSF" 
@@ -272,14 +483,14 @@
                 </select>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="motorCode">Motor Code</label>
                 <select
-                id="selectedMotorCode"
-                class="form-control"
-                [(ngModel)]="electricalItem.selectedMotorCode"
-                name="selectedMotorCode"
+                  id="selectedMotorCode"
+                  class="form-control"
+                  [(ngModel)]="electricalItem.selectedMotorCode"
+                  name="selectedMotorCode"
                 >
                   <option
                     *ngFor="let currentMotorCode of electricalItem.motorCode" 
@@ -293,14 +504,14 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="selectedSccRating">SCC Rating</label>
                 <select
-                id="selectedSccRating"
-                class="form-control"
-                [(ngModel)]="electricalItem.selectedSccRating"
-                name="selectedSccRating"
+                  id="selectedSccRating"
+                  class="form-control"
+                  [(ngModel)]="electricalItem.selectedSccRating"
+                  name="selectedSccRating"
                 >
                   <option
                     *ngFor="let currentSccRating of electricalItem.sccRating" 
@@ -309,10 +520,10 @@
                   >
                     {{currentSccRating}}
                   </option>
-                </select>
+                  </select>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="selectedEnclosureRating">Enclosure Rating</label>
                 <select
@@ -331,21 +542,21 @@
                 </select>
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="loadFactor">Load Factor (%)</label>
                 <input type="number" class="form-control" [(ngModel)]="electricalItem.loadFactor" name="loadFactor">
               </div>
             </div>
-            <div class="col-12 col-sm-3 align-self-end">
+            <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="selectedLoadDuty">Load Duty</label>
                 <select
-                id="selectedLoadDuty"
-                class="form-control"
-                [(ngModel)]="electricalItem.selectedLoadDuty"
-                name="selectedLoadDuty"
-                >
+                  id="selectedLoadDuty"
+                  class="form-control"
+                  [(ngModel)]="electricalItem.selectedLoadDuty"
+                  name="selectedLoadDuty"
+                  >
                   <option
                     *ngFor="let currentLoadDuty of electricalItem.loadDuty" 
                     [ngValue]="currentLoadDuty"
@@ -360,38 +571,64 @@
           <div class="row">
             <div class="col-12 col-sm-6 align-self-end">
               <div class="row">
-                <div class="col-12 col-sm-6 align-self-end">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem">
                   <div class="form-group">
-                    <label>Ambient Temp (°C)</label>
-                    <input class="form-control">
+                    <label for="ambientTemp">Ambient Temp (°C)</label>
+                    <input id="ambientTemp" type="number" class="form-control" [(ngModel)]="electricalItem.ambientTemp" name="ambientTemp">
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 align-self-end">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem">
                   <div class="form-group">
-                      <label>Termination Temp (°C)</label>
-                    <input class="form-control">
+                    <label for="selectedTerminationTemp">Termination Temp (°C)</label>
+                    <select
+                      id="selectedTerminationTemp"
+                      class="form-control"
+                      [(ngModel)]="electricalItem.selectedTerminationTemp"
+                      name="selectedTerminationTemp"
+                    >
+                      <option
+                        *ngFor="let currentTerminationTemp of electricalItem.terminationTemp" 
+                        [ngValue]="currentTerminationTemp"
+                        [selected]="currentTerminationTemp==electricalItem.selectedTerminationTemp"
+                      >
+                        {{currentTerminationTemp}}
+                      </option>
+                    </select>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-sm-6 align-self-end">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem">
                   <div class="form-group">
-                    <label>Operating T Min.(°C)</label>
-                    <input class="form-control">
+                    <label for="operationTempMin">Operating T Min.(°C)</label>
+                    <input id="operationTempMin" type="number" class="form-control" [(ngModel)]="electricalItem.operationTempMin" name="operationTempMin">
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 align-self-end">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem">
                   <div class="form-group">
-                    <label>Operating T Max.(°C)</label>
-                    <input class="form-control">
+                    <label for="operationTempMax">Operating T Max.(°C)</label>
+                    <input id="operationTempMax" type="number" class="form-control" [(ngModel)]="electricalItem.operationTempMax" name="operationTempMax">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-sm-6 align-self-end">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem">
                   <div class="form-group">
-                    <label>Insul. Designation</label>
-                    <input class="form-control">
+                    <label for="selectedInsulDescription">Insul. Designation</label>
+                    <select
+                      id="selectedInsulDescription"
+                      class="form-control"
+                      [(ngModel)]="electricalItem.selectedInsulDescription"
+                      name="selectedInsulDescription"
+                    >
+                      <option
+                        *ngFor="let currentInsulDescription of electricalItem.insulDescription" 
+                        [ngValue]="currentInsulDescription"
+                        [selected]="currentInsulDescription==electricalItem.selectedInsulDescription"
+                      >
+                        {{currentInsulDescription}}
+                      </option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -415,16 +652,16 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem?.hazlocClass != null">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem">
                   <div class="form-group">
                     <label for="selectedHazlocClass">Hazloc Class</label>
                     <select
-                    id="selectedHazlocClass"
-                    class="form-control"
-                    [(ngModel)]="electricalItem.selectedHazlocClass"
+                      id="selectedHazlocClass"
+                      class="form-control selectForOpenModal"
+                      [(ngModel)]="electricalItem.selectedHazlocClass"
 
-                    (ngModelChange)="optionChanged($event)"
-                    name="selectedHazlocClass"
+                      (ngModelChange)="optionChanged($event)"
+                      name="selectedHazlocClass"
                     >
                       <option
                         *ngFor="let currentHazlocClass of electricalItem.hazlocClass" 
@@ -436,37 +673,58 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem?.hazlocZone != null">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem">
                   <div class="form-group">
                     <label for="selectedHazlocZone">Hazloc Zone</label>
-                    <select [disabled]="electricalItem.selectedHazlocClass == electricalItem.hazlocClass[0] || !electricalItem.selectedHazlocClass"
-                    id="selectedHazlocZone"
-                    class="form-control"
-                    [(ngModel)]="electricalItem.selectedHazlocZone"
-                    #selectedHazlocZone="ngModel"
-                    name="selectedHazlocZone"
-                    >
-                      <option
-                        *ngFor="let currentHazlocZone of electricalItem.hazlocZone" 
-                        [ngValue]="currentHazlocZone"
-                        [selected]="currentHazlocZone==electricalItem.selectedHazlocZone"
+                    <div class="d-flex flex-row">
+                      <select 
+                        [disabled]="electricalItem.selectedHazlocClass == electricalItem.hazlocClass[0] || !electricalItem.selectedHazlocClass"
+                        id="selectedHazlocZone"
+                        class="form-control selectForOpenModal"
+                        [(ngModel)]="electricalItem.selectedHazlocZone"
+                        #selectedHazlocZone="ngModel"
+                        name="selectedHazlocZone"
                       >
-                        {{currentHazlocZone}}
-                      </option>
-                    </select>
+                        <option
+                          *ngFor="let currentHazlocZone of electricalItem.hazlocZone" 
+                          [ngValue]="currentHazlocZone"
+                          [selected]="currentHazlocZone==electricalItem.selectedHazlocZone"
+                        >
+                          {{currentHazlocZone}}
+                        </option>
+                      </select>
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary btnPlus fa fa-plus"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Add new item"
+                        [disabled]="!electricalItem.selectedHazlocClass || electricalItem.selectedHazlocClass == 'General'"
+                        (click)="hazlocZoneModal.showAddModal()"
+                      ></button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary btnMinus fa fa-minus"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Drop selected item"
+                        (click)="hazlocZoneModal.showDropModal(dropElementFlag)"
+                        [disabled]="electricalItem.hazlocZone.length == 0 || !electricalItem.selectedHazlocClass || electricalItem.selectedHazlocClass == 'General'"
+                      ></button>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-sm-6 align-self-end">
-                  <div class="form-group" *ngIf="electricalItem?.hazlocGroup != null">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem">
+                  <div class="form-group">
                     <label for="selectedHazlocGroup">Hazloc Group</label>
                     <select [disabled]="electricalItem.selectedHazlocClass == electricalItem.hazlocClass[0] || !electricalItem.selectedHazlocClass"
-                    id="selectedHazlocGroup"
-                    class="form-control"
-                    [(ngModel)]="electricalItem.selectedHazlocGroup"
-                    #selectedHazlocGroup="ngModel"
-                    name="selectedHazlocGroup"
+                      id="selectedHazlocGroup"
+                      class="form-control selectForOpenModal"
+                      [(ngModel)]="electricalItem.selectedHazlocGroup"
+                      #selectedHazlocGroup="ngModel"
+                      name="selectedHazlocGroup"
                     >
                       <option
                         *ngFor="let currentHazlocGroup of electricalItem.hazlocGroup" 
@@ -478,24 +736,44 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 align-self-end">
-                  <div class="form-group" *ngIf="electricalItem?.hazlocGroup != null">
+                <div class="col-12 col-sm-6 align-self-end" *ngIf="electricalItem">
+                  <div class="form-group">
                     <label for="selectedHazlocTemperature">Hazloc Temperature</label>
-                    <select [disabled]="electricalItem.selectedHazlocClass == electricalItem.hazlocClass[0] || !electricalItem.selectedHazlocClass"
-                    id="selectedHazlocTemperature"
-                    class="form-control"
-                    [(ngModel)]="electricalItem.selectedHazlocTemperature"
-                    #selectedHazlocTemperature="ngModel"
-                    name="selectedHazlocTemperature"
-                    >
-                      <option
-                        *ngFor="let currentHazlocTemperature of electricalItem.hazlocTemperature" 
-                        [ngValue]="currentHazlocTemperature"
-                        [selected]="currentHazlocTemperature==electricalItem.selectedHazlocTemperature"
+                    <div class="d-flex flex-row">
+                      <select [disabled]="electricalItem.selectedHazlocClass == electricalItem.hazlocClass[0] || !electricalItem.selectedHazlocClass"
+                        id="selectedHazlocTemperature"
+                        class="form-control selectForOpenModal"
+                        [(ngModel)]="electricalItem.selectedHazlocTemperature"
+                        #selectedHazlocTemperature="ngModel"
+                        name="selectedHazlocTemperature"
                       >
-                        {{currentHazlocTemperature}}
-                      </option>
-                    </select>
+                        <option
+                          *ngFor="let currentHazlocTemperature of electricalItem.hazlocTemperature" 
+                          [ngValue]="currentHazlocTemperature"
+                          [selected]="currentHazlocTemperature==electricalItem.selectedHazlocTemperature"
+                        >
+                          {{currentHazlocTemperature}}
+                        </option>
+                      </select>
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary btnPlus fa fa-plus"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Add new item"
+                        [disabled]="!electricalItem.selectedHazlocClass || electricalItem.selectedHazlocClass == 'General'"
+                        (click)="hazlocTemperatureModal.showAddModal()"
+                      ></button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary btnMinus fa fa-minus"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Drop selected item"
+                        (click)="hazlocTemperatureModal.showDropModal(dropElementFlag)"
+                        [disabled]="electricalItem.hazlocTemperature.length == 0 || !electricalItem.selectedHazlocClass || electricalItem.selectedHazlocClass == 'General'"
+                      ></button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -505,7 +783,7 @@
     </div>
     <div class="row">
       <div class="form-group">
-        <a routerLink="/project/5a1ed5f11af5b524cc2b4129/electricals/" class="btn btn-primary">Back</a>
+        <a routerLink="/project/{{projectId}}/electricals/" class="btn btn-primary">Back</a>
         <button type="submit" class="btn btn-success" [disabled]="!electricalForm.form.valid">Update/Create</button>
       </div>
     </div>
@@ -549,7 +827,7 @@
             <td>{{electricalItem?.equipmentTag}}</td>
             <td></td>
             <td></td>
-            <td></td>
+            <td>{{electricalItem?.selectedVoltage}}</td>
             <td>{{electricalItem?.selectedPowerSystem}}</td>
             <td>{{electricalItem?.nameplateRating}}</td>
             <td>{{electricalItem?.selectedUnits}}</td>
@@ -559,7 +837,7 @@
             <td>{{electricalItem?.selectedLoadDuty}}</td>
             <td></td>
             <td></td>
-            <td></td>
+            <td>{{electricalItem?.totalConectedFla}}</td>
             <td></td>
             <td></td>
             <td></td>
@@ -598,11 +876,11 @@
           </tr>
           <tr>
             <td><strong>System Voltage</strong></td>
-            <td></td>
+            <td>{{electricalItem?.selectedVoltage}}</td>
           </tr>
           <tr>
             <td><strong>Power System</strong></td>
-            <td></td>
+            <td>{{electricalItem?.selectedPowerSystem}}</td>
           </tr>
           <tr>
             <td><strong>Nameplate Rating</strong></td>
@@ -692,4 +970,15 @@
       </div>
     </ng-template>
   </form>
+  <!--START MODALS -->
+  <app-modal [dataValue]="electricalItem?.equipmentType" [selectedValue]="electricalItem?.selectedEquipmentType" [title]="equipmentType" #equipmentTypeModal></app-modal>
+  <app-modal [dataValue]="electricalItem?.pidDrawing" [selectedValue]="electricalItem?.selectedPidDrawing" [title]="pidDraving" #pidDrawingModal></app-modal>
+  <app-modal [dataValue]="electricalItem?.layoutDrawing" [selectedValue]="electricalItem?.selectedLayoutDrawing" [title]="layoutDrawing" #layoutDrawingModal></app-modal>
+  <app-modal [dataValue]="electricalItem?.sldDraving" [selectedValue]="electricalItem?.selectedSldDraving" [title]="sldDraving" #sldDravingModal></app-modal>
+  <app-modal [dataValue]="electricalItem?.locationArea" [selectedValue]="electricalItem?.selectedLocationArea" [title]="locationArea" #locationAreaModal></app-modal>
+  <app-modal [dataValue]="productsAfterChangeEvent" [selectedValue]="electricalItem?.selectedVoltage.name" [title]="voltage" #voltageModal></app-modal>
+  <app-modal [dataValue]="electricalItem?.equipmentDescription" [selectedValue]="electricalItem?.selectedEquipmentDescription" [title]="equipmentDescription" #equipmentDescriptionModal></app-modal>
+  <app-modal [dataValue]="electricalItem?.hazlocZone" [selectedValue]="electricalItem?.selectedHazlocZone" [title]="hazlocZone" #hazlocZoneModal></app-modal>
+  <app-modal [dataValue]="electricalItem?.hazlocTemperature" [selectedValue]="electricalItem?.selectedHazlocTemperature" [title]="hazlocTemperature" #hazlocTemperatureModal></app-modal>
+  <!-- END MODALS -->
 </div>

@@ -14,6 +14,7 @@ import { ProjectInfoComponent } from './project-info/project-info.component';
 import { ElectricalsComponent } from './electricals/electricals.component';
 import { ElectricalCreateComponent } from './electrical-create/electrical-create.component';
 import { DependencySelectPipe } from './dependency-select.pipe';
+import { ModalComponent } from './modal/modal.component';
 
 const appRoutes: Routes = [
   {
@@ -66,7 +67,8 @@ const appRoutes: Routes = [
     ProjectInfoComponent,
     ElectricalsComponent,
     ElectricalCreateComponent,
-    DependencySelectPipe
+    DependencySelectPipe,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

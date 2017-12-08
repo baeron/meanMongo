@@ -8,3 +8,17 @@ tbody tr td  {
   height: auto; 
   overflow: auto;
 }
+
+button.btnPlus {
+  border-radius: 0 0 0 0!important;
+  /*color: black;*/
+}
+
+button.btnMinus {
+  border-radius: 0 .25rem .25rem 0!important;
+  /*color: black;*/
+}
+
+select.selectForOpenModal {
+  border-radius: .25rem 0 0 .25rem!important;
+}
