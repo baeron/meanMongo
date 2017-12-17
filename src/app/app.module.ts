@@ -14,6 +14,7 @@ import { ElectricalsComponent } from './electricals/electricals.component';
 import { ElectricalCreateComponent } from './electrical-create/electrical-create.component';
 import { DependencySelectPipe } from './dependency-select.pipe';
 import { ModalComponent } from './modal/modal.component';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 const appRoutes: Routes = [
   {
@@ -71,6 +72,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    Ng4LoadingSpinnerModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)

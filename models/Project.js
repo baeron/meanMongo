@@ -174,8 +174,8 @@ var electrucalSchema = new mongoose.Schema({
 
 var ProjectSchema = new mongoose.Schema({
   title: String,
-  //date_create: { type: Date, default: Date.now },
-  //updated_date: { type: Date, default: Date.now },
+  date_create: { type: Date, default: Date.now },
+  updated_date: { type: Date, default: Date.now },
   electricals: [electrucalSchema]
 });
 

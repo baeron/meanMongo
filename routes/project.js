@@ -15,7 +15,7 @@ router.get('/', function (req, res) {
       .find({}, "title updated_date date_create", function(err, project){
         if(err)
           res.send(err);
-          res.json(project /*, userName*/)
+          res.json(project /*, userName*/);
       });
   } else {
     sendJSONresponse(res, 404, {
