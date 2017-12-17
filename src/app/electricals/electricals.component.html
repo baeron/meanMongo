@@ -1,26 +1,109 @@
 <div class="container">
   <div class="pt-2">
     <h1>Electricals List
-      <!-- [routerLink]="['/project', project._id, 'electrical-create']" -->
       <a class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Add new electrical" (click)="saveElectrical()">
         <i class="fa fa-plus" aria-hidden="true"></i>
       </a>
     </h1>
   </div>
-  <table class="table table-sm">
+  <div class="row achievements-wrapper">
+    <table class="table table-sm table-bordered table-hover">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Date create</th>
-          <th>Date update</th>
-          <th>Action</th>
+          <th></th>
+          <th>Rev.</th>
+          <th>Equipment Tag</th>
+          <th>Equipment Description</th>
+          <th>Load Type</th>
+          <th>System Voltage</th>
+          <th>Power System</th>
+          <th>Nameplate Rating</th>
+          <th>Units</th>
+          <th>Total % PF</th>
+          <th>Total % EFF</th>
+          <th>Motor Sf</th>
+          <th>Motor Code</th>
+          <th>Load Duty</th>
+          <th>Total Connected FLA</th>
+          <th>Total Connected KW</th>
+          <th>Total Connected KVAR</th>
+          <th>Total Connected KVA</th>
+          <th>Load Factor %</th>
+          <th>Total Demand FLA</th>
+          <th>Total Demand KW</th>
+          <th>Total Demand KVAR</th>
+          <th>Total Demand KVA</th>
+          <th>Total Scenario 1 LoadFactor %</th>
+          <th>Total Scenario 1 FLA</th>
+          <th>Total Scenario 1 KW</th>
+          <th>Total Scenario 1 KVAR</th>
+          <th>Total Scenario1 KVA</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let electrical of project.electricals">
-          <td><a routerLink="/project/{{projectId}}/electrical-create/{{electrical._id}}">{{electrical.revision}}</a></td>
-          <td>{{electrical.quantity}}</td>
-        </tr>
+        <ng-container *ngFor="let electrical of project?.electricals">
+          <tr *ngIf="!electrical.selectedParentTag">
+            <td></td>
+            <td><a routerLink="/project/{{projectId}}/electrical-create/{{electrical._id}}">{{electrical.revision}}</a></td>  <!-- Rev -->
+            <td>{{electrical?.equipmentTag}}</td>                                                                             <!-- Equipment Tag -->
+            <td></td>                                                                                                         <!-- Equipment Description -->
+            <td>{{electrical?.selectedEquipmentType}}</td>                                                                     <!-- Load Type -->
+            <td>{{electrical?.selectedVoltage.name}}</td>                                                                      <!-- System Voltage -->
+            <td>{{electrical?.selectedPowerSystem}}</td>                                                                       <!-- Power System -->
+            <td>{{electrical?.nameplateRating}}</td>                                                                           <!-- Nameplate Rating -->
+            <td>{{electrical?.selectedUnits}}</td>                                                                             <!-- Units -->
+            <td>{{electrical?.totalPF}}</td>                                                                                   <!-- Total % PF -->
+            <td>{{electrical?.totalEFF}}</td>                                                                                  <!-- Total % EFF -->
+            <td>{{electrical?.selectedMotorSF}}</td>                                                                           <!-- Motor Sf -->
+            <td>{{electrical?.selectedMotorCode}}</td>                                                                         <!-- Motor Code -->
+            <td>{{electrical?.selectedLoadDuty}}</td>                                                                          <!-- Load Duty -->
+            <td>{{electrical?.totalConectedFla}}</td>                                                                          <!-- Total Connected FLA -->
+            <td>{{electrical?.totalConectedKW}}</td>                                                                           <!-- Total Connected KW -->
+            <td>{{electrical?.totalConnectedKVAR}}</td>                                                                        <!-- Total Connected KVAR -->
+            <td>{{electrical?.totalConnectedKVA}}</td>                                                                         <!-- Total Connected KVA -->
+            <td>{{electrical?.loadFactor}}</td>                                                                                <!-- Load Factor % -->
+            <td>{{electrical?.totalDemandFLA}}</td>                                                                            <!-- Total Demand FLA -->
+            <td>{{electrical?.totalDemandKW}}</td>                                                                             <!-- Total Demand KW -->
+            <td>{{electrical?.totalDemandKVAR}}</td>                                                                           <!-- Total Demand KVAR -->
+            <td>{{electrical?.totalDemandKVA}}</td>                                                                            <!-- Total Demand KVA -->
+            <td>{{electrical?.scenarioFirstLoadFactor}}</td>                                                                   <!-- Total Scenario 1 LoadFactor % -->
+            <td>{{electrical?.scenarioFirstFLA}}</td>                                                                          <!-- Total Scenario 1 FLA -->
+            <td>{{electrical?.scenarioFirstKW}}</td>                                                                           <!-- Total Scenario 1 KW -->
+            <td>{{electrical?.scenarioFirstKVAR}}</td>                                                                         <!-- Total Scenario 1 KVAR -->
+            <td>{{electrical?.scenarioFirstKVA}}</td>                                                                          <!-- Total Scenario1 KVA -->
+          </tr>
+          <tr class="childs" bgcolor="#F5F5F5" *ngFor="let electricalChilds of electrical.chiildList">
+            <td></td>
+            <td><a routerLink="/project/{{projectId}}/electrical-create/{{electricalChilds._id}}">{{electricalChilds.revision}}</a></td>  <!-- Rev -->
+            <td>{{electricalChilds?.equipmentTag}}</td>                                                                       <!-- Equipment Tag -->
+            <td></td>                                                                                                         <!-- Equipment Description -->
+            <td>{{electricalChilds.selectedEquipmentType}}</td>                                                               <!-- Load Type -->
+            <td>{{electricalChilds.selectedVoltage.name}}</td>                                                                <!-- System Voltage -->
+            <td>{{electricalChilds.selectedPowerSystem}}</td>                                                                 <!-- Power System -->
+            <td>{{electricalChilds.nameplateRating}}</td>                                                                     <!-- Nameplate Rating -->
+            <td>{{electricalChilds.selectedUnits}}</td>                                                                       <!-- Units -->
+            <td>{{electricalChilds.totalPF}}</td>                                                                             <!-- Total % PF -->
+            <td>{{electricalChilds.totalEFF}}</td>                                                                            <!-- Total % EFF -->
+            <td>{{electricalChilds.selectedMotorSF}}</td>                                                                     <!-- Motor Sf -->
+            <td>{{electricalChilds.selectedMotorCode}}</td>                                                                   <!-- Motor Code -->
+            <td>{{electricalChilds.selectedLoadDuty}}</td>                                                                    <!-- Load Duty -->
+            <td>{{electricalChilds.totalConectedFla}}</td>                                                                    <!-- Total Connected FLA -->
+            <td>{{electricalChilds.totalConectedKW}}</td>                                                                     <!-- Total Connected KW -->
+            <td>{{electricalChilds.totalConnectedKVAR}}</td>                                                                  <!-- Total Connected KVAR -->
+            <td>{{electricalChilds.totalConnectedKVA}}</td>                                                                   <!-- Total Connected KVA -->
+            <td>{{electricalChilds.loadFactor}}</td>                                                                          <!-- Load Factor % -->
+            <td>{{electricalChilds.totalDemandFLA}}</td>                                                                      <!-- Total Demand FLA -->
+            <td>{{electricalChilds.totalDemandKW}}</td>                                                                       <!-- Total Demand KW -->
+            <td>{{electricalChilds.totalDemandKVAR}}</td>                                                                     <!-- Total Demand KVAR -->
+            <td>{{electricalChilds.totalDemandKVA}}</td>                                                                      <!-- Total Demand KVA -->
+            <td>{{electricalChilds.scenarioFirstLoadFactor}}</td>                                                             <!-- Total Scenario 1 LoadFactor % -->
+            <td>{{electricalChilds.scenarioFirstFLA}}</td>                                                                    <!-- Total Scenario 1 FLA -->
+            <td>{{electricalChilds.scenarioFirstKW}}</td>                                                                     <!-- Total Scenario 1 KW -->
+            <td>{{electricalChilds.scenarioFirstKVAR}}</td>                                                                   <!-- Total Scenario 1 KVAR -->
+            <td>{{electricalChilds.scenarioFirstKVA}}</td>                                                                    <!-- Total Scenario1 KVA -->
+          </tr>
+        </ng-container>
       </tbody>
-  </table>
+    </table>
+  </div>
 </div>

@@ -12,7 +12,7 @@
             <div class="col-12 col-sm-3 align-self-end">
               <div class="form-group">
                 <label for="itemNumber">Item number</label>
-                <input type="text" class="form-control"  name="itemNumber" disabled> <!--[(ngModel)]="electricalItem.itemNumber" -->
+                <input type="text" class="form-control"  name="itemNumber" disabled>
               </div>
             </div>
             <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
@@ -202,7 +202,19 @@
             <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="parentTag">Parent Tag</label>
-                <input type="text" class="form-control" [(ngModel)]="electricalItem.parentTag" name="parentTag" disabled>
+                <select [disabled]="parentList?.length == 0"
+                id="selectedParentTag"
+                class="form-control selectForOpenModal"
+                [(ngModel)]="electricalItem.selectedParentTag"
+                name="selectedParentTag"
+              >
+                <option
+                  *ngFor="let currentParentTag of parentList" 
+                  [ngValue]="currentParentTag"
+                  [selected]="currentParentTag==electricalItem.selectedParentTag">
+                    {{currentParentTag}}
+                </option>
+              </select>
               </div>
             </div>
             <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
@@ -357,7 +369,7 @@
             <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="scenarioFirstLoadFactor">Scenario 1 Load Factor %</label>
-                <input type="text" class="form-control" [(ngModel)]="electricalItem.scenarioFirstLoadFactor" name="scenarioFirstLoadFactor" >
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.scenarioFirstLoadFactor" name="scenarioFirstLoadFactor" >
               </div>
             </div>
           </div>
@@ -442,7 +454,7 @@
             <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
               <div class="form-group">
                 <label for="nameplateRating">Nameplate Rating</label>
-                <input type="text" class="form-control" [(ngModel)]="electricalItem.nameplateRating" name="nameplateRating">
+                <input type="number" class="form-control" [(ngModel)]="electricalItem.nameplateRating" name="nameplateRating">
               </div>
             </div>
             <div class="col-12 col-sm-3 align-self-end" *ngIf="electricalItem">
@@ -781,11 +793,21 @@
           </div>
         </div>
     </div>
-    <div class="row">
-      <div class="form-group">
+    <div class="d-flex justify-content-end">
+      <!--<div class="d-flex justify-content-end">-->
+        <div class="mr-auto p-2">
+          <a routerLink="/project/{{projectId}}/electricals/" class="btn btn-primary">Back</a>
+        </div>
+        <div class="p-2 form-group">
+          <button type="submit" class="btn btn-success" [disabled]="!electricalForm.form.valid">Update/Create</button>
+        </div>
+    <!--  </div>-->
+<!--      <div class="form-group">
         <a routerLink="/project/{{projectId}}/electricals/" class="btn btn-primary">Back</a>
+        <button class="btn btn-danger">Delete</button>
         <button type="submit" class="btn btn-success" [disabled]="!electricalForm.form.valid">Update/Create</button>
       </div>
+    -->
     </div>
     <div *ngIf="sizeWindow > 576; else werticalTable">
       <div class="row achievements-wrapper">
@@ -823,33 +845,33 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{electricalItem?.revision}}</td>
-            <td>{{electricalItem?.equipmentTag}}</td>
-            <td></td>
-            <td></td>
-            <td>{{electricalItem?.selectedVoltage}}</td>
-            <td>{{electricalItem?.selectedPowerSystem}}</td>
-            <td>{{electricalItem?.nameplateRating}}</td>
-            <td>{{electricalItem?.selectedUnits}}</td>
-            <td>{{electricalItem?.totalPF}}</td>
-            <td>{{electricalItem?.totalEFF}}</td>
-            <td>{{electricalItem?.loadFactor}}</td>
-            <td>{{electricalItem?.selectedLoadDuty}}</td>
-            <td></td>
-            <td></td>
-            <td>{{electricalItem?.totalConectedFla}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{electricalItem?.revision}}</td>                         <!-- Rev. -->
+            <td>{{electricalItem?.equipmentTag}}</td>                     <!-- Equipment Tag -->
+            <td>{{electricalItem?.selectedEquipmentDescription}}</td>     <!-- Equipment Description -->
+            <td>{{electricalItem?.selectedEquipmentType}}</td>            <!-- Load Type -->
+            <td>{{electricalItem?.selectedVoltage?.name}}</td>             <!-- System Voltage -->
+            <td>{{electricalItem?.selectedPowerSystem}}</td>              <!-- Power System -->
+            <td>{{electricalItem?.nameplateRating}}</td>                  <!-- Nameplate Rating -->
+            <td>{{electricalItem?.selectedUnits}}</td>                    <!-- Units -->
+            <td>{{electricalItem?.totalPF}}</td>                          <!-- Total % PF -->
+            <td>{{electricalItem?.totalEFF}}</td>                         <!-- Total % EFF -->
+            <td>{{electricalItem?.selectedMotorSF}}</td>                  <!-- Motor SF -->
+            <td>{{electricalItem?.selectedMotorCode}}</td>                <!-- Motor Code -->
+            <td>{{electricalItem?.loadFactor}}</td>                       <!-- Load Factor % -->
+            <td>{{electricalItem?.selectedLoadDuty}}</td>                 <!-- Load Duty -->
+            <td>{{electricalItem?.totalConectedFla}}</td>                 <!-- Total Connected FLA -->
+            <td>{{electricalItem?.totalConectedKW}}</td>                  <!-- Total Connected KW -->
+            <td>{{electricalItem?.totalConnectedKVAR}}</td>               <!-- Total Connected KVAR -->
+            <td>{{electricalItem?.totalConnectedKVA}}</td>                <!-- Total Connected KVA -->
+            <td>{{electricalItem?.totalDemandFLA}}</td>                   <!-- Total Demand FLA -->
+            <td>{{electricalItem?.totalDemandKW}}</td>                    <!-- Total Demand KW -->
+            <td>{{electricalItem?.totalDemandKVAR}}</td>                  <!-- Total Demand KVAR -->
+            <td>{{electricalItem?.totalDemandKVA}}</td>                    <!-- Total Demand KVA -->
+            <td>{{electricalItem?.scenarioFirstLoadFactor}}</td>          <!-- Total Scenario 1 Load Factor % -->
+            <td>{{electricalItem?.scenarioFirstFLA}}</td>                  <!-- Total Scenario 1 FLA -->
+            <td>{{electricalItem?.scenarioFirstKW}}</td>                   <!-- Total Scenario 1 KW -->
+            <td>{{electricalItem?.scenarioFirstKVAR}}</td>                 <!-- Total Scenario 1 KVAR -->
+            <td>{{electricalItem?.scenarioFirstKVA}}</td>                  <!-- Total Scenario 1 KVA -->
           </tr>
         </tbody>
         </table>
@@ -868,15 +890,15 @@
           </tr>
           <tr>
             <td><strong>Equipment Description</strong></td>
-            <td></td>
+            <td>{{electricalItem?.selectedEquipmentDescription}}</td>
           </tr>
           <tr>
             <td><strong>Load Type</strong></td>
-            <td></td>
+            <td>{{electricalItem?.selectedEquipmentType}}</td>
           </tr>
           <tr>
             <td><strong>System Voltage</strong></td>
-            <td>{{electricalItem?.selectedVoltage}}</td>
+            <td>{{electricalItem?.selectedVoltage?.name}}</td>
           </tr>
           <tr>
             <td><strong>Power System</strong></td>
@@ -884,99 +906,102 @@
           </tr>
           <tr>
             <td><strong>Nameplate Rating</strong></td>
-            <td></td>
+            <td>{{electricalItem?.nameplateRating}}</td>
           </tr>
           <tr>
             <td><strong>Units</strong></td>
-            <td></td>
+            <td>{{electricalItem?.selectedUnits}}</td>
           </tr>
           <tr>
             <td><strong>Total % PF</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalPF}}</td>
           </tr>
           <tr>
             <td><strong>Total % EFF</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalEFF}}</td>
           </tr>
           <tr>
             <td><strong>Motor SF</strong></td>
-            <td></td>
+            <td>{{electricalItem?.selectedMotorSF}}</td>
           </tr>
           <tr>
             <td><strong>Motor Code</strong></td>
-            <td></td>
+            <td>{{electricalItem?.selectedMotorCode}}</td>
           </tr>
           <tr>
             <td><strong>Load Factor %</strong></td>
-            <td></td>
+            <td>{{electricalItem?.loadFactor}}</td>
           </tr>
           <tr>
             <td><strong>Load Duty</strong></td>
-            <td></td>
+            <td>{{electricalItem?.selectedLoadDuty}}</td>
           </tr>
           <tr>
             <td><strong>Total Connected FLA</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalConectedFla}}</td>
           </tr>
           <tr>
             <td><strong>Total Connected KW</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalConectedKW}}</td>
           </tr>
           <tr>
             <td><strong>Total Connected KVAR</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalConnectedKVAR}}</td>
           </tr>
           <tr>
             <td><strong>Total Connected KVA</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalConnectedKVA}}</td>
           </tr>
           <tr>
             <td><strong>Total Demand FLA</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalDemandFLA}}</td>
           </tr>
           <tr>
             <td><strong>Total Demand KW</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalDemandKW}}</td>
           </tr>
           <tr>
             <td><strong>Total Demand KVAR</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalDemandKVAR}}</td>
           </tr>
           <tr>
             <td><strong>Total Demand KVA</strong></td>
-            <td></td>
+            <td>{{electricalItem?.totalDemandKVA}}</td>
           </tr>
           <tr>
             <td><strong>Total Scenario 1 Load Factor %</strong></td>
-            <td></td>
+            <td>{{electricalItem?.scenarioFirstLoadFactor}}</td>
           </tr>
           <tr>
             <td><strong>Total Scenario 1 FLA</strong></td>
-            <td></td>
+            <td>{{electricalItem?.scenarioFirstFLA}}</td>
           </tr>
           <tr>
             <td><strong>Total Scenario 1 KW</strong></td>
-            <td></td>
+            <td>{{electricalItem?.scenarioFirstKW}}</td>
           </tr>
           <tr>
             <td><strong>Total Scenario 1 KVAR</strong></td>
-            <td></td>
+            <td>{{electricalItem?.scenarioFirstKVAR}}</td>
           </tr>
           <tr>
             <td><strong>Total Scenario 1 KVA</strong></td>
-            <td></td>
+            <td>{{electricalItem?.scenarioFirstKVA}}</td>
           </tr>
         </table>
       </div>
     </ng-template>
   </form>
+  <div class="row">
+    <button class="btn btn-danger" (click)="deleteElectrical(electricalItem._id)">Delete</button>
+  </div>
   <!--START MODALS -->
   <app-modal [dataValue]="electricalItem?.equipmentType" [selectedValue]="electricalItem?.selectedEquipmentType" [title]="equipmentType" #equipmentTypeModal></app-modal>
   <app-modal [dataValue]="electricalItem?.pidDrawing" [selectedValue]="electricalItem?.selectedPidDrawing" [title]="pidDraving" #pidDrawingModal></app-modal>
   <app-modal [dataValue]="electricalItem?.layoutDrawing" [selectedValue]="electricalItem?.selectedLayoutDrawing" [title]="layoutDrawing" #layoutDrawingModal></app-modal>
   <app-modal [dataValue]="electricalItem?.sldDraving" [selectedValue]="electricalItem?.selectedSldDraving" [title]="sldDraving" #sldDravingModal></app-modal>
   <app-modal [dataValue]="electricalItem?.locationArea" [selectedValue]="electricalItem?.selectedLocationArea" [title]="locationArea" #locationAreaModal></app-modal>
-  <app-modal [dataValue]="productsAfterChangeEvent" [selectedValue]="electricalItem?.selectedVoltage.name" [title]="voltage" #voltageModal></app-modal>
+  <app-modal [dataValue]="productsAfterChangeEvent" [selectedValue]="electricalItem?.selectedVoltage?.name" [title]="voltage" #voltageModal></app-modal>
   <app-modal [dataValue]="electricalItem?.equipmentDescription" [selectedValue]="electricalItem?.selectedEquipmentDescription" [title]="equipmentDescription" #equipmentDescriptionModal></app-modal>
   <app-modal [dataValue]="electricalItem?.hazlocZone" [selectedValue]="electricalItem?.selectedHazlocZone" [title]="hazlocZone" #hazlocZoneModal></app-modal>
   <app-modal [dataValue]="electricalItem?.hazlocTemperature" [selectedValue]="electricalItem?.selectedHazlocTemperature" [title]="hazlocTemperature" #hazlocTemperatureModal></app-modal>

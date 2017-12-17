@@ -1,3 +1,4 @@
+/*
 {
     "name": "Launch via NPM",
     "type": "node",
@@ -9,8 +10,7 @@
     ],
     "port": 9229
 }
-/*
-
+*/
 {
   "version": "0.2.0",
   "configurations": [
@@ -30,7 +30,7 @@
     "webRoot": "${workspaceFolder}"
   }]
 }
-*/
+
 //ng build
 //node ./bin/www
 //after then F5 in VSCode
